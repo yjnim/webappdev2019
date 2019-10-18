@@ -1,0 +1,143 @@
+body {
+    background-image: url("background.png");
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 8pt;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+#div_banner {
+    background-image: url("bannerbg.png");
+    height: 50px;
+    text-align: center;
+}
+
+#img_banner {
+    height: 50px;
+}
+
+#h1_movieny {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24pt;
+    font-family: Tahoma, Verdana, sans-serif;
+    text-shadow: #999999 3px 3px;
+}
+
+#div_content {
+    margin: 0 auto;
+    width: 800px;
+    border: 4px solid gray;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+#div_rottenbig {
+    background-image: url("rbg.png");
+    height: 83px;
+    width: 550px;
+    display: flex;
+    align-items: center;
+}
+
+#img_rottenbig {
+    height: 83px;
+    float: left;
+}
+
+#span_rottenrating {
+    font-size: 48px;
+    color: red;
+    font-weight: bold;
+}
+
+#div_cols {
+    width: 550px;
+}
+
+#div_col1 {
+    width: 47%;
+    float: left;
+    padding: 2%;
+}
+
+#div_col2 {
+    width: 47%;
+    float: right;
+    padding: 2% 2% 2% 0;
+}
+
+.p_quote {
+    font-size: 8px;
+    font-weight: bold;
+    background: #E8DC9B;
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 8px;
+    overflow: auto;
+}
+
+.img_rorf {
+    margin-right: 5px;
+    float: left;
+}
+
+.p_critic {
+    margin-bottom: 20pt;
+    overflow: auto;
+}
+
+.img_critic {
+    float: left;
+    margin-right: 5px;
+}
+
+.span_affi {
+    font-style: italic;
+}
+
+#div_overview {
+    width: 250px;
+    float: right;
+    background-color: #A2B964;
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+}
+
+dl {
+    margin: 0 10pt;
+}
+
+dt {
+    padding-top: 10pt;
+    font-weight: bold;
+}
+
+li {
+    list-style: none;
+}
+
+ul {
+    padding-left: 0;
+}
+
+#div_indicator {
+    width: 100%;
+    float: left;
+    background: #A2B964;
+    text-align: center;
+}
+
+#p_indicator {
+    margin: 5px 0;
+}
+
+#div_w3c {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+#div_w3c img {
+    opacity: 0.5;
+}
