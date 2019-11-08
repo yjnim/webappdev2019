@@ -71,12 +71,12 @@
 		?>
 
 		<ul> 
-			<li>Name: <?php print($name); ?></li>
-			<li>ID: <?php print($id); ?></li>
+			<li>Name: <?= $name ?></li>
+			<li>ID: <?= $id ?></li>
 			<!-- use the 'processCheckbox' function to display selected courses -->
 			<li>Course: <?php processCheckbox($course); ?></li>
-			<li>Grade: <?php print($grade); ?></li>
-			<li>Credit: <?php print($cardnumber); print(" ($cc)"); ?></li>
+			<li>Grade: <?= $grade ?></li>
+			<li>Credit: <?= "$cardnumber ($cc)" ?></li>
 		</ul>
 		
 		<!-- Ex 3 :  -->
