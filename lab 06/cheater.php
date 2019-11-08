@@ -87,14 +87,14 @@
 			 * Save the submitted data to the file 'loosers.txt' in the format of : "name;id;cardnumber;cardtype".
 			 * For example, "Scott Lee;20110115238;4300523877775238;visa"
 			 */
-			$fileputstring = "$name;$id;$cardnumber;$cc";
-			file_put_contents($filename, $fileputstring);
+			$fileputstring = "$name;$id;$cardnumber;$cc\n";
+			file_put_contents($filename, $fileputstring, FILE_APPEND | LOCK_EX);
 			$filegetstring = file_get_contents($filename);
 		?>
 		
 		<!-- Ex 3: Show the complete contents of "loosers.txt".
 			 Place the file contents into an HTML <pre> element to preserve whitespace -->
-				<?php print "$filegetstring"; ?>
+				<?= nl2br($filegetstring) ?>
 		
 		<?php
 		 }
