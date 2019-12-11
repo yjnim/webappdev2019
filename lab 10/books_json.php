@@ -38,6 +38,25 @@ print "{\n  \"books\": [\n";
 // 2. search all the books that matches the given category 
 // 3. generate the result in JSON data format 
 
+$lines = file($BOOKS_FILE);
+$books = array();
+
+for ($i=0; $i<count($lines); $i++) {
+	list($title, $author, $book_category, $year, $price) = explode("|", trim($lines[$i]));
+	if ($book_category == $category) {
+		$books[] = "    {\"category\": \"$category\", \"title\": \"$title\", \"author\": \"$author\", \"year\": $year, \"price\": $price}";
+	}
+}
+
+for ($i = 0; $i < count($books); $i++) {
+	print $books[$i];
+	if ($i + 1 != count($books)) {
+		print ",\n";
+	} else {
+		print "\n";
+	}
+}
+
 print "  ]\n}\n";
 
 ?>

@@ -1,16 +1,23 @@
 window.onload = function() {
     $("b_xml").onclick=function(){
 		//construct a Prototype Ajax.request object
-		new Ajax.request("./books.php", {
-			method: "get",
+		new Ajax.Request("./books.php", {
+			method: "GET",
 			parameters: {category: getCheckedRadio($$('input[type="radio"]'))},
-			onSuccess: showBooks_XML(Ajax),
-			onFailure: ajaxFailed(Ajax),
-			onException: ajaxFailed(Ajax)
+			onSuccess: showBooks_XML,
+			onFailure: ajaxFailed,
+			onException: ajaxFailed
 		});
     }
     $("b_json").onclick=function(){
-    	    //construct a Prototype Ajax.request object
+		//construct a Prototype Ajax.request object
+		new Ajax.Request("./books_json.php", {
+			method: "GET",
+			parameters: {category: getCheckedRadio($$('input[type="radio"]'))},
+			onSuccess: showBooks_JSON,
+			onFailure: ajaxFailed,
+			onException: ajaxFailed
+		});
     }
 };
 
@@ -24,11 +31,28 @@ function getCheckedRadio(radio_button){
 }
 
 function showBooks_XML(ajax) {
-	alert(ajax.responseText);
+	$('books').innerHTML = "";
+
+	var books = ajax.responseXML.getElementsByTagName("book");
+	for (var i=0; i<books.length; i++) {
+		var li = document.createElement("li");
+		li.innerHTML = books[i].getElementsByTagName("title")[0].firstChild.nodeValue
+			+ ", by " + books[i].getElementsByTagName("author")[0].firstChild.nodeValue
+			+ " (" + books[i].getElementsByTagName("year")[0].firstChild.nodeValue + ")";
+		$('books').appendChild(li);
+	}
 }
 
 function showBooks_JSON(ajax) {
-	alert(ajax.responseText);
+	$('books').innerHTML = "";
+
+	var data = JSON.parse(ajax.responseText);
+	console.log(data);
+	for (var i=0; i < data.books.length; i++) {
+		var li = document.createElement("li");
+		li.innerHTML = data.books[i].title + ", by " + data.books[i].author + " (" + data.books[i].year + ")";
+		$('books').appendChild(li);
+	}
 }
 
 function ajaxFailed(ajax, exception) {
