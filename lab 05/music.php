@@ -53,15 +53,16 @@
 			<ol>
 			<?php 
 			$artists = array();
-			$fp = fopen("favorite.txt","r");
+			$fp = fopen("./favorite.txt","r");
 			while( !feof($fp) ) {
 				$doc_data = fgets($fp);
 				array_push($artists, $doc_data);
 			}
 			fclose($fp);			
 			for ($i=0; $i<count($artists); $i++) {
-				$artists_a = preg_replace("/\s+/", "_", $artists[$i]);
-				print "<li><a href='http://en.wikipedia.org/wiki/{$artists_a}'>{$artists[$i]}</a></li>";
+				$output = str_replace(" ", "_", $artists[$i]);
+				$output = str_replace("'", "", $output);
+				print "<li><a href='http://en.wikipedia.org/wiki/{$output}'>{$artists[$i]}</a></li>";
 			}
 			?>
 			</ol>
@@ -73,30 +74,58 @@
 			<h2>My Music and Playlists</h2>
 
 			<ul id="musiclist">
-				<?php 
-					$path = glob("/lab5/musicPHP/songs/*.mp3");
-				?>
-				<li class="mp3item">
-					<a href="lab5/musicPHP/songs/paradise-city.mp3">paradise-city.mp3</a>
-				</li>
-				
-				<li class="mp3item">
-					<a href="lab5/musicPHP/songs/basket-case.mp3">basket-case.mp3</a>
-				</li>
+				<?php
+				$filenamearr = array();
+				$sizearr = array();
+				foreach (glob("lab5/musicphp/songs/*.mp3") as $mp3) {
+					$output = explode("/", $mp3);
+					$kbsize = floor(filesize($mp3) / 1024);
+					$sizearr[$output[count($output)-1]] = $kbsize;
+					array_push($filenamearr, $output[count($output)-1]);
+				}
+				arsort($sizearr);
 
-				<li class="mp3item">
-					<a href="lab5/musicPHP/songs/all-the-small-things.mp3">all-the-small-things.mp3</a>
-				</li>
+				foreach ($sizearr as $key => $value) {
+					print "<li class='mp3item'>
+					<a href='../lab5/musicphp/songs/{$key}'>{$key}</a>
+					({$value} KB)</li>";
+				}
+
+				?>
 
 				<!-- Exercise 8: Playlists (Files) -->
-				<li class="playlistitem">326-13f-mix.m3u:
-					<ul>
-						<li>Basket Case.mp3</li>
-						<li>All the Small Things.mp3</li>
-						<li>Just the Way You Are.mp3</li>
-						<li>Pradise City.mp3</li>
-						<li>Dreams.mp3</li>
-					</ul>
+				<?php
+					$temp = array(); // array to save playlists' name
+					
+					$temp3 = array(); // array to connect playlists' name and songs
+					foreach (glob("lab5/musicphp/songs/*.m3u") as $playlist) {
+						$output = explode("/", $playlist);
+						array_push($temp, $output[count($output)-1]);
+
+						$plistarr = file($playlist);
+
+						$temp2 = array(); // array to save songs' name
+						foreach ($plistarr as $line) {
+							if (strpos($line, "#") !== 0) {
+								array_push($temp2, $line);
+							}
+						}
+						$temp3[$output[count($output)-1]] = $temp2;
+					}
+					rsort($temp);
+
+					for ($i=0; $i<count($temp); $i++) {
+						print "<li class='playlistitem'>{$temp[$i]}<ul>";
+						shuffle($temp3[$temp[$i]]);
+						for ($j=0; $j<count($temp3[$temp[$i]]); $j++) {
+							print "<li>{$temp3[$temp[$i]][$j]}</li>";
+						}
+						print "</ul></li>";
+					
+					}
+					
+
+				?>
 			</ul>
 		</div>
 
